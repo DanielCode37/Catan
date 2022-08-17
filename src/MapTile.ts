@@ -1,8 +1,7 @@
 import * as THREE from "three";
-
 export default class MapTile extends THREE.Mesh {
     public static readonly RADIUS: number = 1;
-    public static readonly HEIGHT: number = 0.1;
+    public static readonly HEIGHT: number = 0.15;
 
     public readonly geometry: THREE.CylinderGeometry;
     public readonly material: THREE.MeshBasicMaterial;
@@ -15,4 +14,10 @@ export default class MapTile extends THREE.Mesh {
         this.geometry = geometry;
         this.material = material;
     }
+
+
+    public get distanceToEdge(): number {
+        return Math.sqrt(3) / 2 * MapTile.RADIUS;
+    }
+
 }
