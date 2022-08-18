@@ -4,7 +4,7 @@ import MapTile from './MapTile';
 export default class Board {
 	private readonly scene: THREE.Scene;
 	private static readonly DISTANCE: number = 1.8;
-	private tiles: MapTile[][] = [];
+	public tiles: MapTile[] = [];
 
 	constructor(scene: THREE.Scene) {
 		this.scene = scene;
@@ -19,7 +19,7 @@ export default class Board {
 
 		for (let i = 0; i < plan.length; i++) {
 
-			const offsetX = this.xor(plan[i] % 2 == 0, i % 2 == 0) ? -Board.DISTANCE / 2 : 0;
+			const offsetX = this.xor(plan[i] % 2 !== 0, i % 2 == 0) ? Board.DISTANCE / 2 : 0;
 			console.log(offsetX);
 
 
@@ -36,6 +36,7 @@ export default class Board {
 				tile.position.z = offsetY
 
 				this.scene.add(tile);
+				this.tiles.push(tile);
 			}
 		}
 

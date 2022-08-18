@@ -19,6 +19,9 @@ board.generateMap(20);
 
 camera.position.z = 5;
 
+const light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+scene.add(light);
+
 const controls = new OrbitControls(camera, renderer.domElement);
 
 controls.minPolarAngle = 0;
@@ -36,3 +39,24 @@ controls.dampingFactor = 0.25;
 
 controls.addEventListener('change', () => { renderer.render(scene, camera) });
 renderer.render(scene, camera);
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+addEventListener("click", (event) => {
+    event.preventDefault();
+
+    mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+    mouse.y = - (event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+
+    const intersects = raycaster.intersectObjects(board.tiles);
+
+    if (intersects.length > 0) {
+        //@ts-ignore
+        intersects[0].object.onClick();
+
+    }
+
+})
