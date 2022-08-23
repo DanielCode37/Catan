@@ -33,9 +33,9 @@ const mouse = new THREE.Vector2();
 
 const caracter = new Character(CharacterType.WIZARD, scene);
 
-
-board.tiles[156].material.color.setHex(0xff0000);
-const tiles = board.getConnectedTiles(156);
+const index = 230;
+board.tiles[index].material.color.setHex(0xff0000);
+const tiles = board.getConnectedTiles(index);
 
 for (const tile of tiles) {
     board.tiles[tile].material.color.setHex(0xcc5555)

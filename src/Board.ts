@@ -8,6 +8,8 @@ export default class Board {
 	public tiles: MapTile[] = [];
 	public boardSize!: number[];
 
+	public selectedTileIndex?: number;
+
 	constructor(scene: THREE.Scene) {
 		this.scene = scene;
 	}
@@ -70,33 +72,42 @@ export default class Board {
 	}
 
 	public getConnectedTiles(index: number): number[] {
-		// Reihe davor -1 und 0
-		// Reihe -1 +1
-		// Reihe danach ^
-
-		let indexCopy = index;
-
-		////////////////////////////////////////
-		//// RAND MUSS NOCH BEACHTET WERDEN ////
-		////////////////////////////////////////
+		let positionInRow = index;
 
 		// TODO: RAND MUSS NOCH BEACHTET WERDEN
 
+		const positions: number[] = [index - 1, index + 1];
 		for (let i = 0; i < this.boardSize.length; i++) {
-			if (indexCopy > this.boardSize[i]) indexCopy -= this.boardSize[i];
+			if (positionInRow > this.boardSize[i]) positionInRow -= this.boardSize[i];
 			else {
 				if (i < Math.floor(this.boardSize.length / 2)) {
+					positions.push(index - this.boardSize[i]);
+					positions.push(index - this.boardSize[i] + 1);
 
+					positions.push(index + this.boardSize[i + 1])
+					positions.push(index + this.boardSize[i + 1] - 1);
 				} else if (i == Math.floor(this.boardSize.length / 2)) {
+					positions.push(index - this.boardSize[i]);
+					positions.push(index - this.boardSize[i] + 1);
 
+					positions.push(index + this.boardSize[i + 1])
+					positions.push(index + this.boardSize[i + 1] + 1);
 				} else {
+					positions.push(index - this.boardSize[i]);
+					positions.push(index - this.boardSize[i] - 1);
 
+					positions.push(index + this.boardSize[i + 1])
+					positions.push(index + this.boardSize[i + 1] + 1);
 				}
-
 				break;
 			}
 		}
+		return positions;
 
+
+	}
+
+	public handleClickOnTile(tileIndex: number): void {
 
 	}
 

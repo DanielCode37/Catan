@@ -7,11 +7,11 @@ export default class Controls extends OrbitControls {
         super(camera, renderer.domElement);
 
         this.minPolarAngle = 0;
-        this.maxPolarAngle = 2;
+        this.maxPolarAngle = 1.5;
 
 
         this.minDistance = 2;
-        this.maxDistance = 50;
+        this.maxDistance = 60;
 
         this.enablePan = true; // Set to false to disable panning (ie vertical and horizontal translations)
 
